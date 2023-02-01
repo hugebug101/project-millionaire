@@ -7,50 +7,44 @@ import java.util.Scanner;
 public class Main {
 
     static Scanner input = new Scanner(System.in);
-    static String real_answer = null;
+    static String realAnswer = null;
     static boolean streak = true;
     static ArrayList<String> choices = new ArrayList<>();
-    static ArrayList<String> first_questions = new ArrayList<>();
-    static ArrayList<String> physic_first_question_answers = new ArrayList<>();
-    static ArrayList<String> chemistry_first_question_answers = new ArrayList<>();
-    static ArrayList<String> biology_first_question_answers = new ArrayList<>();
-    static ArrayList<String> second_questions = new ArrayList<>();
-    static ArrayList<String> physic_second_question_answers = new ArrayList<>();
-    static ArrayList<String> chemistry_second_question_answers = new ArrayList<>();
-    static ArrayList<String> biology_second_question_answers = new ArrayList<>();
-    static ArrayList<String> third_questions = new ArrayList<>();
-    static ArrayList<String> physic_third_question_answers = new ArrayList<>();
-    static ArrayList<String> chemistry_third_question_answers = new ArrayList<>();
-    static ArrayList<String> biology_third_question_answers = new ArrayList<>();
-    static ArrayList<String> fourth_questions = new ArrayList<>();
-    static ArrayList<String> physic_fourth_question_answers = new ArrayList<>();
-    static ArrayList<String> chemistry_fourth_question_answers = new ArrayList<>();
-    static ArrayList<String> biology_fourth_question_answers = new ArrayList<>();
-    static ArrayList<String> fifth_questions = new ArrayList<>();
-    static ArrayList<String> physic_fifth_question_answers = new ArrayList<>();
-    static ArrayList<String> chemistry_fifth_question_answers = new ArrayList<>();
-    static ArrayList<String> biology_fifth_question_answers = new ArrayList<>();
-    static ArrayList<String> list_answers = new ArrayList<>();
+    static ArrayList<String> firstQuestions = new ArrayList<>();
+    static ArrayList<String> physicFirstQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> chemistryFirstQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> biologyFirstQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> secondQuestions = new ArrayList<>();
+    static ArrayList<String> physicSecondQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> chemistrySecondQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> biologySecondQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> thirdQuestions = new ArrayList<>();
+    static ArrayList<String> physicThirdQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> chemistryThirdQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> biologyThirdQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> fourthQuestions = new ArrayList<>();
+    static ArrayList<String> physicFourthQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> chemistryFourthQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> biologyFourthQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> fifthQuestions = new ArrayList<>();
+    static ArrayList<String> physicFifthQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> chemistryFifthQuestionAnswers = new ArrayList<>();
+    static ArrayList<String> biologyFifthQuestionAnswers = new ArrayList<>();
 
     //main method
     public static void main(String[] args) {
         startGame();
     }
 
-    static void gameTitle() {
-        System.out.println("Are you a genius");
-        System.out.println("The program will randomly select question based on topics in Chemistry, Physics and Biology");
-        System.out.println("Are you ready, please enter your name");
-    }
-
     static void startGame() {
 
         gameTitle();
 
-        String player_name = playerName();
+        String playerName = playerName();
 
         //there will be 5 rounds of questions
         for (int round = 1; round <= 5; round++) {
+
             streak = generateQuestion(randomNumber(3), round);
 
             //streak checker
@@ -62,33 +56,15 @@ public class Main {
                 System.out.println("\nIncreased difficulty\n");
             }
         }
-        endGame(player_name);
+        endGame(playerName);
     }
 
-    static void endGame(String player_name) {
-        if (streak) {
-            System.out.println("\nYou are a genius " + player_name);
-        }
-    }
-
-    static String playerName() {
-        String name = input.next();
-        System.out.println("Hello, " + name);
-        System.out.println();
-        return name;
-    }
-
-    //generate random number from 1 to max
-    static int randomNumber(int max) {
-        return (int) Math.floor(Math.random() * max + 1);
-    }
-
-    static boolean generateQuestion(int random_number, int round) {
+    static boolean generateQuestion(int randomNumber, int round) {
 
         if (round == 1) {
             System.out.println("Question " + round);
             //three random quest will be selected
-            switch (random_number) {
+            switch (randomNumber) {
                 case 1 -> {
                     //physic
                     System.out.println(generateFirstQuestions().get(0));
@@ -107,7 +83,7 @@ public class Main {
             }
         } else if (round == 2) {
             System.out.println("Question " + round);
-            switch (random_number) {
+            switch (randomNumber) {
                 case 1 -> {
                     //physic
                     System.out.println(generateSecondQuestions().get(0));
@@ -126,7 +102,7 @@ public class Main {
             }
         } else if (round == 3) {
             System.out.println("Question " + round);
-            switch (random_number) {
+            switch (randomNumber) {
                 case 1 -> {
                     //physic
                     System.out.println(generateThirdQuestions().get(0));
@@ -145,7 +121,7 @@ public class Main {
             }
         } else if (round == 4) {
             System.out.println("Question " + round);
-            switch (random_number) {
+            switch (randomNumber) {
                 case 1 -> {
                     //physic
                     System.out.println(generateFourthQuestions().get(0));
@@ -164,7 +140,7 @@ public class Main {
             }
         } else if (round == 5) {
             System.out.println("Question " + round);
-            switch (random_number) {
+            switch (randomNumber) {
                 case 1 -> {
                     //physic
                     System.out.println(generateFifthQuestions().get(0));
@@ -185,17 +161,358 @@ public class Main {
         return true;
     }
 
-    //validate answer
-    static String isAnswer(String answer, ArrayList<String> method_answer) {
+    //generate answer and shuffle its placement
+    static boolean generateAnswer(int answerScheme, int round) {
 
-        System.out.println();
-        list_answers = method_answer;
+        generateChoices();
+
+        if (round == 1) {
+            switch (answerScheme) {
+                case 1 -> {
+                    //physic
+                    return isAnswer("Potential difference", physicFirstQuestionAnswer()).equals(realAnswer);
+                }
+                case 2 -> {
+                    //chemistry
+                    return isAnswer("Chlorine Gas", chemistryFirstQuestionAnswer()).equals(realAnswer);
+                }
+                case 3 -> {
+                    //biology
+                    return isAnswer("Cell", biologyFirstQuestionAnswer()).equals(realAnswer);
+                }
+            }
+        } else if (round == 2) {
+            switch (answerScheme) {
+                case 1 -> {
+                    //physic
+                    return isAnswer("Zero", physicSecondQuestionAnswer()).equals(realAnswer);
+                }
+                case 2 -> {
+                    //chemistry
+                    return isAnswer("Ionizes partially in water to produce hydrogen oxide", chemistrySecondQuestionAnswer()).equals(realAnswer);
+                }
+                case 3 -> {
+                    //biology
+                    return isAnswer("Nucleus", biologySecondQuestionAnswer()).equals(realAnswer);
+                }
+            }
+        } else if (round == 3) {
+            switch (answerScheme) {
+                case 1 -> {
+                    //physic
+                    return isAnswer("Pressure's Law", physicThirdQuestionAnswer()).equals(realAnswer);
+                }
+                case 2 -> {
+                    //chemistry
+                    return isAnswer("The container becomes hotter", chemistryThirdQuestionAnswer()).equals(realAnswer);
+                }
+                case 3 -> {
+                    //biology
+                    return isAnswer("Smooth Endoplasma Reticulum", biologyThirdQuestionAnswer()).equals(realAnswer);
+                }
+            }
+        } else if (round == 4) {
+            switch (answerScheme) {
+                case 1 -> {
+                    //physic
+                    return isAnswer("Fleming's Left hand rule", physicFourthQuestionAnswer()).equals(realAnswer);
+                }
+                case 2 -> {
+                    //chemistry
+                    return isAnswer("Antidepressant", chemistryFourthQuestionAnswer()).equals(realAnswer);
+                }
+                case 3 -> {
+                    //biology
+                    return isAnswer("Ground tissue", biologyFourthQuestionAnswer()).equals(realAnswer);
+                }
+            }
+        } else if (round == 5) {
+            switch (answerScheme) {
+                case 1 -> {
+                    //physic
+                    return isAnswer("Capacitor", physicFifthQuestionAnswer()).equals(realAnswer);
+                }
+                case 2 -> {
+                    //chemistry
+                    return isAnswer("Sodium carbonate", chemistryFifthQuestionAnswer()).equals(realAnswer);
+                }
+                case 3 -> {
+                    //biology
+                    return isAnswer("The blood glucose level", biologyFifthQuestionAnswer()).equals(realAnswer);
+                }
+            }
+        }
+        return false;
+    }
+
+    //Luqman
+    //first question
+    static ArrayList<String> generateFirstQuestions() {
+        firstQuestions.add("Which quantity is a scalar quantity?  "); //physics
+        firstQuestions.add("Which of the following substance consist of molecules?"); //chemistry
+        firstQuestions.add("What do we call the most basic structure of living things"); //biology
+
+        return firstQuestions;
+    }
+
+    //Hafizudin
+    static ArrayList<String> physicFirstQuestionAnswer() {
+        physicFirstQuestionAnswers.add("Potential difference");
+        physicFirstQuestionAnswers.add("Velocity");
+        physicFirstQuestionAnswers.add("Momentum");
+        physicFirstQuestionAnswers.add("Force");
+
+        //Potential difference
+
+        Collections.shuffle(physicFirstQuestionAnswers);
+
+        return physicFirstQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> chemistryFirstQuestionAnswer() {
+        chemistryFirstQuestionAnswers.add("Helium Gas");
+        chemistryFirstQuestionAnswers.add("Chlorine Gas");
+        chemistryFirstQuestionAnswers.add("Sodium Carbonate");
+        chemistryFirstQuestionAnswers.add("Copper(ii) Oxide");
+
+        //Chlorine Gas
+
+        Collections.shuffle(chemistryFirstQuestionAnswers);
+
+        return chemistryFirstQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> biologyFirstQuestionAnswer() {
+        biologyFirstQuestionAnswers.add("DNA");
+        biologyFirstQuestionAnswers.add("Skin");
+        biologyFirstQuestionAnswers.add("Cell");
+        biologyFirstQuestionAnswers.add("Life");
+
+        //Cell
+
+        Collections.shuffle(biologyFirstQuestionAnswers);
+
+        return biologyFirstQuestionAnswers;
+    }
+
+    //second question
+    static ArrayList<String> generateSecondQuestions() {
+        secondQuestions.add("Where is DNA found inside a cell?");
+        secondQuestions.add("The force are balance when the net force is");
+        secondQuestions.add("Which of the followingg is true about weak acid ?");
+
+        return secondQuestions;
+    }
+
+    //Hafizudin
+    static ArrayList<String> physicSecondQuestionAnswer() {
+        physicSecondQuestionAnswers.add("Zero");
+        physicSecondQuestionAnswers.add("More than frictional force");
+        physicSecondQuestionAnswers.add("Equal to frictional force");
+        physicSecondQuestionAnswers.add("Less than frictional force");
+
+        //Zero
+
+        Collections.shuffle(physicSecondQuestionAnswers);
+
+        return physicSecondQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> chemistrySecondQuestionAnswer() {
+        chemistrySecondQuestionAnswers.add("Unable to neutralize alkali");
+        chemistrySecondQuestionAnswers.add("The pH value is more than 7");
+        chemistrySecondQuestionAnswers.add("Able to change red litmus paper to blue");
+        chemistrySecondQuestionAnswers.add("Ionizes partially in water to produce hydrogen oxide");
+
+        //Ionizes partially in water to produce hydrogen oxide
+
+        Collections.shuffle(chemistrySecondQuestionAnswers);
+
+        return chemistrySecondQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> biologySecondQuestionAnswer() {
+        biologySecondQuestionAnswers.add("Cytoplasm");
+        biologySecondQuestionAnswers.add("Nucleus");
+        biologySecondQuestionAnswers.add("Cell membrane");
+        biologySecondQuestionAnswers.add("Mitochondria");
+
+        //Nucleus
+
+        Collections.shuffle(biologySecondQuestionAnswers);
+
+        return biologySecondQuestionAnswers;
+    }
+
+    //Luqman
+    //third question
+    static ArrayList<String> generateThirdQuestions() {
+        thirdQuestions.add("Which organelle synthesis lipid?");
+        thirdQuestions.add("After a log journey the air pressure in a car tyre is increased,this can explain by");
+        thirdQuestions.add("Which of the following is true of an Exorthermic reaction?");
+
+        return thirdQuestions;
+    }
+
+    //Hafizudin
+    static ArrayList<String> physicThirdQuestionAnswer() {
+        physicThirdQuestionAnswers.add("Boyle's Law");
+        physicThirdQuestionAnswers.add("Charles's Law");
+        physicThirdQuestionAnswers.add("Pressure's Law");
+        physicThirdQuestionAnswers.add("Newton's Law");
+
+        //Pressure's Law
+
+        Collections.shuffle(physicThirdQuestionAnswers);
+
+        return physicThirdQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> chemistryThirdQuestionAnswer() {
+        chemistryThirdQuestionAnswers.add("The container becomes hotter");
+        chemistryThirdQuestionAnswers.add("The temperature of mixture decreases");
+        chemistryThirdQuestionAnswers.add("Heat energy is absorbed from the surroundings");
+        chemistryThirdQuestionAnswers.add("The heat energy is converted to kinetic energy");
+
+        //The container becomes hotter
+
+        Collections.shuffle(chemistryThirdQuestionAnswers);
+
+        return chemistryThirdQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> biologyThirdQuestionAnswer() {
+        biologyThirdQuestionAnswers.add("Lysosom");
+        biologyThirdQuestionAnswers.add("Rough Endoplasmic Reticulum");
+        biologyThirdQuestionAnswers.add("Golgi Apparatus");
+        biologyThirdQuestionAnswers.add("Smooth Endoplasma Reticulum");
+
+        //Smooth Endoplasma Reticulum
+
+        Collections.shuffle(biologyThirdQuestionAnswers);
+
+        return biologyThirdQuestionAnswers;
+    }
+
+    //Luqman
+    //fourth question
+    static ArrayList<String> generateFourthQuestions() {
+        fourthQuestions.add("Which of the following tissue is NOT a plant tissue");
+        fourthQuestions.add("The motion of a current carrying conductor in an magnetic fields can be determined by");
+        fourthQuestions.add("What is the type of medicine for barbiturate");
+
+        return fourthQuestions;
+    }
+
+    //Hafizudin
+    static ArrayList<String> physicFourthQuestionAnswer() {
+        physicFourthQuestionAnswers.add("Direction of current flow");
+        physicFourthQuestionAnswers.add("Fleming's Right hand rule");
+        physicFourthQuestionAnswers.add("Fleming's Left hand rule");
+        physicFourthQuestionAnswers.add("Right hand grip rule");
+
+        //Fleming's Left hand rule
+
+        Collections.shuffle(physicFourthQuestionAnswers);
+
+        return physicFourthQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> chemistryFourthQuestionAnswer() {
+        chemistryFourthQuestionAnswers.add("Antibiotic");
+        chemistryFourthQuestionAnswers.add("Antidepressant");
+        chemistryFourthQuestionAnswers.add("Stimulant");
+        chemistryFourthQuestionAnswers.add("Analgesic");
+
+        //Antidepressant
+
+        Collections.shuffle(chemistryFourthQuestionAnswers);
+
+        return chemistryFourthQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> biologyFourthQuestionAnswer() {
+        biologyFourthQuestionAnswers.add("Meristem tissue");
+        biologyFourthQuestionAnswers.add("Connective tissue");
+        biologyFourthQuestionAnswers.add("Ground tissue");
+        biologyFourthQuestionAnswers.add("Vascular tissue");
+
+        //Ground tissue
+
+        Collections.shuffle(biologyFourthQuestionAnswers);
+
+        return biologyFourthQuestionAnswers;
+    }
+
+    //Luqman
+    //fourth question
+    static ArrayList<String> generateFifthQuestions() {
+        fifthQuestions.add("Which internal factor is regulated by Pankreas");
+        fifthQuestions.add("Which of the following electronic component can store charge and also smoothen the output current of a rectification circuit");
+        fifthQuestions.add("What is the addictive added in detergent to improve the function of detergent as cleaning agent in hard water");
+
+        return fifthQuestions;
+    }
+
+    //Hafizudin
+    static ArrayList<String> physicFifthQuestionAnswer() {
+        physicFifthQuestionAnswers.add("Resistor");
+        physicFifthQuestionAnswers.add("Diode");
+        physicFifthQuestionAnswers.add("Capacitor");
+        physicFifthQuestionAnswers.add("Thermistor");
+
+        //Capacitor
+
+        Collections.shuffle(physicFifthQuestionAnswers);
+
+        return physicFifthQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> chemistryFifthQuestionAnswer() {
+        chemistryFifthQuestionAnswers.add("Lipase");
+        chemistryFifthQuestionAnswers.add("Sodium Hypochlorite");
+        chemistryFifthQuestionAnswers.add("Sodium carbonate");
+        chemistryFifthQuestionAnswers.add("Silicones");
+
+        //Sodium carbonate
+
+        Collections.shuffle(chemistryFifthQuestionAnswers);
+
+        return chemistryFifthQuestionAnswers;
+    }
+
+    //Hafizudin
+    static ArrayList<String> biologyFifthQuestionAnswer() {
+        biologyFifthQuestionAnswers.add("The level of carbon dioxide");
+        biologyFifthQuestionAnswers.add("The blood osmotic pressure");
+        biologyFifthQuestionAnswers.add("The body temperature");
+        biologyFifthQuestionAnswers.add("The blood glucose level");
+
+        //The blood glucose leve
+
+        Collections.shuffle(biologyFifthQuestionAnswers);
+
+        return biologyFifthQuestionAnswers;
+    }
+
+    //validate answer
+    static String isAnswer(String answer, ArrayList<String> listAnswers) {
+
         for (int i = 0; i < 4; i++) {
-            System.out.println(choices.get(i) + " " + list_answers.get(i));
-            System.out.println(list_answers.get(i).contains(answer)); //comment to hide answer
-            System.out.println();
-            if (list_answers.get(i).contains(answer)) {
-                real_answer = choices.get(i);
+            System.out.println("\t" + choices.get(i) + " " + listAnswers.get(i));
+//            System.out.println("\t" + listAnswers.get(i).contains(answer)); //comment to hide answer
+
+            if (listAnswers.get(i).contains(answer)) {
+                realAnswer = choices.get(i);
             }
         }
         return String.valueOf(input.next().toUpperCase().charAt(0));
@@ -209,327 +526,27 @@ public class Main {
         choices.add("D");
     }
 
-    //generate answer and shuffle its placement
-    static boolean generateAnswer(int answer_scheme, int round) {
-
-        generateChoices();
-
-        if (round == 1) {
-            switch (answer_scheme) {
-                case 1 -> {
-                    //physic
-                    return isAnswer("Dimensions", physicFirstQuestionAnswer()).equals(real_answer);
-                }
-                case 2 -> {
-                    //chemistry
-                    return isAnswer("They easily lose electrons", chemistryFirstQuestionAnswer()).equals(real_answer);
-                }
-                case 3 -> {
-                    //biology
-                    return isAnswer("Mercury Poisoning", biologyFirstQuestionAnswer()).equals(real_answer);
-                }
-            }
-        } else if (round == 2) {
-            switch (answer_scheme) {
-                case 1 -> {
-                    //physic
-                    return isAnswer("Time", physicSecondQuestionAnswer()).equals(real_answer);
-                }
-                case 2 -> {
-                    //chemistry
-                    return isAnswer("Vulcanization", chemistrySecondQuestionAnswer()).equals(real_answer);
-                }
-                case 3 -> {
-                    //biology
-                    return isAnswer("Vitamin K", biologySecondQuestionAnswer()).equals(real_answer);
-                }
-            }
-        } else if (round == 3) {
-            switch (answer_scheme) {
-                case 1 -> {
-                    //physic
-                    return isAnswer("Geostationary Orbit", physicThirdQuestionAnswer()).equals(real_answer);
-                }
-                case 2 -> {
-                    //chemistry
-                    return isAnswer("Asbestos", chemistryThirdQuestionAnswer()).equals(real_answer);
-                }
-                case 3 -> {
-                    //biology
-                    return isAnswer("Myosin", biologyThirdQuestionAnswer()).equals(real_answer);
-                }
-            }
-        } else if (round == 4) {
-            switch (answer_scheme) {
-                case 1 -> {
-                    //physic
-                    return isAnswer("His power output is greater when he runs in comparison to when he walks", physicFourthQuestionAnswer()).equals(real_answer);
-                }
-                case 2 -> {
-                    //chemistry
-                    return isAnswer("Silver Chloride", chemistryFourthQuestionAnswer()).equals(real_answer);
-                }
-                case 3 -> {
-                    //biology
-                    return isAnswer("Increase in volume and burst", biologyFourthQuestionAnswer()).equals(real_answer);
-                }
-            }
-        } else if (round == 5) {
-            switch (answer_scheme) {
-                case 1 -> {
-                    //physic
-                    return isAnswer("Will become 2.25 times", physicFifthQuestionAnswer()).equals(real_answer);
-                }
-                case 2 -> {
-                    //chemistry
-                    return isAnswer("Tear gas", chemistryFifthQuestionAnswer()).equals(real_answer);
-                }
-                case 3 -> {
-                    //biology
-                    return isAnswer("Gastrin", biologyFifthQuestionAnswer()).equals(real_answer);
-                }
-            }
+    static void endGame(String playerName) {
+        if (streak) {
+            System.out.println("\nYou are a genius " + playerName);
         }
-        return false;
     }
 
-    //first question
-    static ArrayList<String> generateFirstQuestions() {
-        first_questions.add("Which among the following is measured using a Vernier Caliper?"); //physics
-        first_questions.add("The Alkali metals are called good reducing agents. This implies that__"); //chemistry
-        first_questions.add("Minimata Disease is a severe neurological syndrome caused by eating fish and discovered in Japan. What was factor behind this disease?"); //biology
-
-        return first_questions;
+    static String playerName() {
+        String name = input.next();
+        System.out.println("Hello, " + name);
+        System.out.println();
+        return name;
     }
 
-    static ArrayList<String> physicFirstQuestionAnswer() {
-        physic_first_question_answers.add("Dimensions");
-        physic_first_question_answers.add("Time");
-        physic_first_question_answers.add("Sound");
-        physic_first_question_answers.add("Temperature");
-
-        //Dimensions
-
-        Collections.shuffle(physic_first_question_answers);
-
-        return physic_first_question_answers;
+    //generate random number from 1 to max
+    static int randomNumber(int max) {
+        return (int) Math.floor(Math.random() * max + 1);
     }
 
-    static ArrayList<String> chemistryFirstQuestionAnswer() {
-        chemistry_first_question_answers.add("They easily capture electrons");
-        chemistry_first_question_answers.add("They are not stable at room temperature");
-        chemistry_first_question_answers.add("They easily lose electrons");
-        chemistry_first_question_answers.add("They don’t act with dilute acids");
-
-        //They easily lose electrons
-
-        Collections.shuffle(chemistry_first_question_answers);
-
-        return chemistry_first_question_answers;
-    }
-
-    static ArrayList<String> biologyFirstQuestionAnswer() {
-        biology_first_question_answers.add("Arsenic Poisoning");
-        biology_first_question_answers.add("Mercury Poisoning");
-        biology_first_question_answers.add("Lead Poisoning");
-        biology_first_question_answers.add("Cadmium Poisoning");
-
-        //Mercury Poisoning
-
-        Collections.shuffle(biology_first_question_answers);
-
-        return biology_first_question_answers;
-    }
-
-    //second question
-    static ArrayList<String> generateSecondQuestions() {
-        second_questions.add("Svedberg Unit is a unit of _________?");
-        second_questions.add("When Sulphur is heated with rubber, the process is commonly known as ?");
-        second_questions.add("Which of the following Vitamin is required for Normal Blood Circulation ?");
-
-        return second_questions;
-    }
-
-    static ArrayList<String> physicSecondQuestionAnswer() {
-        physic_second_question_answers.add("Concentration");
-        physic_second_question_answers.add("Size");
-        physic_second_question_answers.add("Density");
-        physic_second_question_answers.add("Time");
-
-        //Time
-
-        Collections.shuffle(physic_second_question_answers);
-
-        return physic_second_question_answers;
-    }
-
-    static ArrayList<String> chemistrySecondQuestionAnswer() {
-        chemistry_second_question_answers.add("Galvanization");
-        chemistry_second_question_answers.add("Sulphonation");
-        chemistry_second_question_answers.add("Vulcanization");
-        chemistry_second_question_answers.add("Hydrodesulfurization");
-
-        //Vulcanization
-
-        Collections.shuffle(chemistry_second_question_answers);
-
-        return chemistry_second_question_answers;
-    }
-
-    static ArrayList<String> biologySecondQuestionAnswer() {
-        biology_second_question_answers.add("Vitamin A");
-        biology_second_question_answers.add("Vitamin K");
-        biology_second_question_answers.add("Vitamin D");
-        biology_second_question_answers.add("Vitamin E");
-
-        //Vitamin K
-
-        Collections.shuffle(biology_second_question_answers);
-
-        return biology_second_question_answers;
-    }
-
-    //third question
-    static ArrayList<String> generateThirdQuestions() {
-        third_questions.add("Which among the following orbits are more prone to harms of space debris or space Junk in comparison to others?");
-        third_questions.add("Calcium Magnesium Silicate is commonly called as ________?");
-        third_questions.add("Which among the following is involved in movement of Muscles?");
-
-        return third_questions;
-    }
-
-    static ArrayList<String> physicThirdQuestionAnswer() {
-        physic_third_question_answers.add("Polar Sun Synchronous Orbit");
-        physic_third_question_answers.add("Low Earth Orbit");
-        physic_third_question_answers.add("Geosynchronous orbit");
-        physic_third_question_answers.add("Geostationary Orbit");
-
-        //Geostationary Orbit
-
-        Collections.shuffle(physic_third_question_answers);
-
-        return physic_third_question_answers;
-    }
-
-    static ArrayList<String> chemistryThirdQuestionAnswer() {
-        chemistry_third_question_answers.add("Asbestos");
-        chemistry_third_question_answers.add("Borax");
-        chemistry_third_question_answers.add("Baking Soda");
-        chemistry_third_question_answers.add("Washing Soda");
-
-        //Asbestos
-
-        Collections.shuffle(chemistry_third_question_answers);
-
-        return chemistry_third_question_answers;
-    }
-
-    static ArrayList<String> biologyThirdQuestionAnswer() {
-        biology_third_question_answers.add("Myoglobin");
-        biology_third_question_answers.add("Myosin");
-        biology_third_question_answers.add("Mucin");
-        biology_third_question_answers.add("None of the above");
-
-        //Myosin
-
-        Collections.shuffle(biology_third_question_answers);
-
-        return biology_third_question_answers;
-    }
-
-    //fourth question
-    static ArrayList<String> generateFourthQuestions() {
-        fourth_questions.add("A person runs up two flights of stairs instead of walking up. The person feels more tired because ___?");
-        fourth_questions.add("Which among the following minerals is also known as Horn Silver?");
-        fourth_questions.add("If Red blood cells in kept in distilled water what will happen?");
-
-        return fourth_questions;
-    }
-
-    static ArrayList<String> physicFourthQuestionAnswer() {
-        physic_fourth_question_answers.add("He does more work when he runs in comparison to when he walks");
-        physic_fourth_question_answers.add("His power output is greater when he runs in comparison to when he walks");
-        physic_fourth_question_answers.add("His gravitational force is greater when he runs in comparison to when he walk");
-        physic_fourth_question_answers.add("He has more inertia when he runs in comparison to when he walks");
-
-        //His power output is greater when he runs in comparison to when he walks
-
-        Collections.shuffle(physic_fourth_question_answers);
-
-        return physic_fourth_question_answers;
-    }
-
-    static ArrayList<String> chemistryFourthQuestionAnswer() {
-        chemistry_fourth_question_answers.add("Silver Iodide");
-        chemistry_fourth_question_answers.add("Silver Chloride");
-        chemistry_fourth_question_answers.add("Zinc Phosphate");
-        chemistry_fourth_question_answers.add("Silver Sulphide");
-
-        //Silver Chloride
-
-        Collections.shuffle(chemistry_fourth_question_answers);
-
-        return chemistry_fourth_question_answers;
-    }
-
-    static ArrayList<String> biologyFourthQuestionAnswer() {
-        biology_fourth_question_answers.add("Shrink and collapse");
-        biology_fourth_question_answers.add("Stick together");
-        biology_fourth_question_answers.add("Increase in volume and burst");
-        biology_fourth_question_answers.add("Remains same");
-
-        //Increase in volume and burst
-
-        Collections.shuffle(biology_fourth_question_answers);
-
-        return biology_fourth_question_answers;
-    }
-
-    //fourth question
-    static ArrayList<String> generateFifthQuestions() {
-        fifth_questions.add("If a moving body turns its speed to 1.5 times, its kinetic energy __:");
-        fifth_questions.add("Which of the following chemicals is also known as lachrymatory agent or lachrymator? ");
-        fifth_questions.add("Which among the following is not an Enzyme?");
-
-        return fifth_questions;
-    }
-
-    static ArrayList<String> physicFifthQuestionAnswer() {
-        physic_fifth_question_answers.add("Will become 1.5 times");
-        physic_fifth_question_answers.add("Will become 3 times");
-        physic_fifth_question_answers.add("Will become 2.25 times");
-        physic_fifth_question_answers.add("Will become 6 times");
-
-        //Will become 2.25 times
-
-        Collections.shuffle(physic_fifth_question_answers);
-
-        return physic_fifth_question_answers;
-    }
-
-    static ArrayList<String> chemistryFifthQuestionAnswer() {
-        chemistry_fifth_question_answers.add("Mustard Gas");
-        chemistry_fifth_question_answers.add("Tear gas");
-        chemistry_fifth_question_answers.add("Diborane");
-        chemistry_fifth_question_answers.add("Chlorine gas");
-
-        //Tear gas
-
-        Collections.shuffle(chemistry_fifth_question_answers);
-
-        return chemistry_fifth_question_answers;
-    }
-
-    static ArrayList<String> biologyFifthQuestionAnswer() {
-        biology_fifth_question_answers.add("Gastrin");
-        biology_fifth_question_answers.add("Ptyalin");
-        biology_fifth_question_answers.add("Pepsin");
-        biology_fifth_question_answers.add("Rennin");
-
-        //Gastrin
-
-        Collections.shuffle(biology_fifth_question_answers);
-
-        return biology_fifth_question_answers;
+    static void gameTitle() {
+        System.out.println("Are you a genius");
+        System.out.println("There will be 5 questions");
+        System.out.print("Are you ready, please enter your name : ");
     }
 }

@@ -32,10 +32,12 @@ public class Main {
     static ArrayList<String> biologyFifthQuestionAnswers = new ArrayList<>();
 
     //main method
+    //Anas
     public static void main(String[] args) {
         startGame();
     }
 
+    //Darwish
     static void startGame() {
 
         gameTitle();
@@ -52,13 +54,13 @@ public class Main {
                 System.out.println("You failed");
                 break;
             }
-            if (round < 5) {
-                System.out.println("\nIncreased difficulty\n");
-            }
+
+            System.out.println("\nIncreased difficulty\n");
         }
         endGame(playerName);
     }
 
+    //Anas
     static boolean generateQuestion(int randomNumber, int round) {
 
         if (round == 1) {
@@ -162,6 +164,7 @@ public class Main {
     }
 
     //generate answer and shuffle its placement
+    //Anas
     static boolean generateAnswer(int answerScheme, int round) {
 
         generateChoices();
@@ -178,7 +181,7 @@ public class Main {
                 }
                 case 3 -> {
                     //biology
-                    return isAnswer("Cell", biologyFirstQuestionAnswer()).equals(realAnswer);
+                        return isAnswer("Cell", biologyFirstQuestionAnswer()).equals(realAnswer);
                 }
             }
         } else if (round == 2) {
@@ -189,7 +192,8 @@ public class Main {
                 }
                 case 2 -> {
                     //chemistry
-                    return isAnswer("Ionizes partially in water to produce hydrogen oxide", chemistrySecondQuestionAnswer()).equals(realAnswer);
+                    return isAnswer("Ionizes partially in water to produce hydrogen oxide",
+                            chemistrySecondQuestionAnswer()).equals(realAnswer);
                 }
                 case 3 -> {
                     //biology
@@ -204,18 +208,21 @@ public class Main {
                 }
                 case 2 -> {
                     //chemistry
-                    return isAnswer("The container becomes hotter", chemistryThirdQuestionAnswer()).equals(realAnswer);
+                    return isAnswer("The container becomes hotter",
+                            chemistryThirdQuestionAnswer()).equals(realAnswer);
                 }
                 case 3 -> {
                     //biology
-                    return isAnswer("Smooth Endoplasma Reticulum", biologyThirdQuestionAnswer()).equals(realAnswer);
+                    return isAnswer("Smooth Endoplasma Reticulum",
+                            biologyThirdQuestionAnswer()).equals(realAnswer);
                 }
             }
         } else if (round == 4) {
             switch (answerScheme) {
                 case 1 -> {
                     //physic
-                    return isAnswer("Fleming's Left hand rule", physicFourthQuestionAnswer()).equals(realAnswer);
+                    return isAnswer("Fleming's Left hand rule",
+                            physicFourthQuestionAnswer()).equals(realAnswer);
                 }
                 case 2 -> {
                     //chemistry
@@ -238,7 +245,8 @@ public class Main {
                 }
                 case 3 -> {
                     //biology
-                    return isAnswer("The blood glucose level", biologyFifthQuestionAnswer()).equals(realAnswer);
+                    return isAnswer("The blood glucose level",
+                            biologyFifthQuestionAnswer()).equals(realAnswer);
                 }
             }
         }
@@ -248,9 +256,9 @@ public class Main {
     //Luqman
     //first question
     static ArrayList<String> generateFirstQuestions() {
-        firstQuestions.add("Which quantity is a scalar quantity?  "); //physics
-        firstQuestions.add("Which of the following substance consist of molecules?"); //chemistry
-        firstQuestions.add("What do we call the most basic structure of living things"); //biology
+        firstQuestions.add("Which quantity is a scalar quantity?  ");
+        firstQuestions.add("Which of the following substance consist of molecules?");
+        firstQuestions.add("What do we call the most basic structure of living things");
 
         return firstQuestions;
     }
@@ -298,10 +306,11 @@ public class Main {
     }
 
     //second question
+    //Luqman
     static ArrayList<String> generateSecondQuestions() {
-        secondQuestions.add("Where is DNA found inside a cell?");
         secondQuestions.add("The force are balance when the net force is");
-        secondQuestions.add("Which of the followingg is true about weak acid ?");
+        secondQuestions.add("Which of the following is true about weak acid ?");
+        secondQuestions.add("Where is DNA found inside a cell?");
 
         return secondQuestions;
     }
@@ -351,9 +360,9 @@ public class Main {
     //Luqman
     //third question
     static ArrayList<String> generateThirdQuestions() {
-        thirdQuestions.add("Which organelle synthesis lipid?");
         thirdQuestions.add("After a log journey the air pressure in a car tyre is increased,this can explain by");
         thirdQuestions.add("Which of the following is true of an Exorthermic reaction?");
+        thirdQuestions.add("Which organelle synthesis lipid?");
 
         return thirdQuestions;
     }
@@ -403,9 +412,9 @@ public class Main {
     //Luqman
     //fourth question
     static ArrayList<String> generateFourthQuestions() {
-        fourthQuestions.add("Which of the following tissue is NOT a plant tissue");
         fourthQuestions.add("The motion of a current carrying conductor in an magnetic fields can be determined by");
         fourthQuestions.add("What is the type of medicine for barbiturate");
+        fourthQuestions.add("Which of the following tissue is NOT a plant tissue");
 
         return fourthQuestions;
     }
@@ -455,9 +464,9 @@ public class Main {
     //Luqman
     //fourth question
     static ArrayList<String> generateFifthQuestions() {
-        fifthQuestions.add("Which internal factor is regulated by Pankreas");
         fifthQuestions.add("Which of the following electronic component can store charge and also smoothen the output current of a rectification circuit");
         fifthQuestions.add("What is the addictive added in detergent to improve the function of detergent as cleaning agent in hard water");
+        fifthQuestions.add("Which internal factor is regulated by Pankreas");
 
         return fifthQuestions;
     }
@@ -505,6 +514,7 @@ public class Main {
     }
 
     //validate answer
+    //Darwish
     static String isAnswer(String answer, ArrayList<String> listAnswers) {
 
         for (int i = 0; i < 4; i++) {
@@ -519,6 +529,7 @@ public class Main {
     }
 
     //generate mcq choices
+    //Hafizudin
     static void generateChoices() {
         choices.add("A");
         choices.add("B");
@@ -526,12 +537,14 @@ public class Main {
         choices.add("D");
     }
 
+    //Darwish
     static void endGame(String playerName) {
         if (streak) {
             System.out.println("\nYou are a genius " + playerName);
         }
     }
 
+    //Luqman
     static String playerName() {
         String name = input.next();
         System.out.println("Hello, " + name);
@@ -540,10 +553,12 @@ public class Main {
     }
 
     //generate random number from 1 to max
+    //Luqman
     static int randomNumber(int max) {
-        return (int) Math.floor(Math.random() * max + 1);
+        return (int) Math.floor((Math.random() * max) + 1);
     }
 
+    //Hafizudin
     static void gameTitle() {
         System.out.println("Are you a genius");
         System.out.println("There will be 5 questions");
